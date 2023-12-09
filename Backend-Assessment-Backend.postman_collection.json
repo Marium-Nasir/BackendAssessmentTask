@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "010ddc8c-94ca-47e5-af54-b8e3a9a676a1",
+		"name": "Backend-Assessment-Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28586191"
+	},
+	"item": [
+		{
+			"name": "Create-Employee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Employee-10\",\r\n    \"position\": \"SQA\",\r\n    \"salary\": \"80,000\",\r\n    \"joiningDate\": \"2023-07-23\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/employee/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"employee",
+						"create"
+					]
+				},
+				"description": "\nThis endpoint allows you to create a new employee record. \n\n### Request Body\n- `name` (string, required): The name of the employee.\n- `position` (string, required): The position or job title of the employee.\n- `salary` (string, required): The salary of the employee.\n- `joiningDate` (string, required): The date when the employee joined.\n\n### Response\n- Status: 201 - Created\n- `message` (string): A message confirming the successful creation of the employee record.\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Read-All-Employess",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>ID</th>\r",
+							"        <th>Name</th>\r",
+							"        <th>Position</th>\r",
+							"        <th>Salary</th>\r",
+							"        <th>Joining Date</th>\r",
+							"        <th>Created At</th>\r",
+							"        <th>Updated At</th>\r",
+							"        <th>__v</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response}}\r",
+							"        <tr>\r",
+							"            <td>{{_id}}</td>\r",
+							"            <td>{{name}}</td>\r",
+							"            <td>{{position}}</td>\r",
+							"            <td>{{salary}}</td>\r",
+							"            <td>{{joiningDate}}</td>\r",
+							"            <td>{{createdAt}}</td>\r",
+							"            <td>{{updatedAt}}</td>\r",
+							"            <td>{{__v}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return {response: pm.response.json()}\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/employee/read",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"employee",
+						"read"
+					]
+				},
+				"description": "This endpoint makes an HTTP GET request to retrieve a list of employee data. The request does not require any payload in the request body.\n\nThe response will have a status code of 200, and it will contain an array of employee objects. Each employee object includes the following fields:\n\n- _id: The unique identifier for the employee\n- name: The name of the employee\n- position: The position or job title of the employee\n- salary: The salary of the employee\n- joiningDate: The date when the employee joined\n- createdAt: The timestamp of when the employee data was created\n- updatedAt: The timestamp of when the employee data was last updated\n- __v: The version of the employee data"
+			},
+			"response": []
+		},
+		{
+			"name": "Calculate-Avg-Salaries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/employee/readavgsalary?pos=Backend Developer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"employee",
+						"readavgsalary"
+					],
+					"query": [
+						{
+							"key": "pos",
+							"value": "Backend Developer"
+						}
+					]
+				},
+				"description": "This endpoint makes an HTTP GET request to retrieve the average salary for employees in a specific position. The request should include a query parameter 'pos' with the value of the desired position, for example, 'Backend Developer'.\n\nThe response to this request will have a status code of 200, and the body will include a JSON object with a 'message' key.\n\nExample:\n\n``` json\n{\n    \"message\": \"\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Get-By-Experience-Level",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/employee/filterbyexperience?minVal=3&maxVal=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"employee",
+						"filterbyexperience"
+					],
+					"query": [
+						{
+							"key": "minVal",
+							"value": "3"
+						},
+						{
+							"key": "maxVal",
+							"value": "5"
+						}
+					]
+				},
+				"description": "\nThis endpoint makes an HTTP GET request to filter employees by their experience. It expects a minimum and maximum value for experience as query parameters in the URL.\n\nThe request does not contain a request body.\n\nThe response will have a status code of 200, and it will include an array of employee objects. Each employee object will have properties like _id, name, position, salary, joiningDate, createdAt, updatedAt, and __v.\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Top-N-Earners",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/employee/topnearners?n=a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"employee",
+						"topnearners"
+					],
+					"query": [
+						{
+							"key": "n",
+							"value": "a"
+						}
+					]
+				},
+				"description": "This endpoint makes an HTTP GET request to retrieve the top earners among the employees. The query parameter 'n' is used to specify the number of top earners to be fetched.\n\n### Request\n\n- Method: GET\n- URL: `http://localhost:3000/api/employee/topnearners?n=5`\n    \n\n### Response\n\n- Status: 200\n- Body:\n    \n    ``` json\n    {\n        \"Top_N_Eearners\": [\n            {\n                \"_id\": \"\",\n                \"name\": \"\",\n                \"position\": \"\",\n                \"salary\": \"\",\n                \"joiningDate\": \"\",\n                \"createdAt\": \"\",\n                \"updatedAt\": \"\",\n                \"__v\": 0\n            }\n        ]\n    }\n    \n     ```"
+			},
+			"response": []
+		},
+		{
+			"name": "calculate-retention-rate",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"currentEmployeesInDept\":\"2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/employee/retentionrate?pos=Backend Developer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"employee",
+						"retentionrate"
+					],
+					"query": [
+						{
+							"key": "pos",
+							"value": "Backend Developer"
+						}
+					]
+				},
+				"description": "This endpoint retrieves the retention rate for a specific position within the company. The HTTP GET request should be made to [http://localhost:3000/api/employee/retentionrate](http://localhost:3000/api/employee/retentionrate) with the query parameter \"pos\" specifying the position, for example, \"Frontend Developer\".\n\n### Request\n\nThe request should have the following payload in the raw request body:\n\n``` json\n{\n    \"currentEmployeesInDept\": \"\"\n}\n\n ```\n\n### Response\n\nUpon a successful execution, the response will have a status code of 200 and will return a JSON object with the \"Retention_Rate\" key indicating the retention rate value.\n\nExample:\n\n``` json\n{\n    \"Retention_Rate\": 0\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Filter-Employees-By-Salary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/employee/filterbysalary?min=70000&max=80000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"employee",
+						"filterbysalary"
+					],
+					"query": [
+						{
+							"key": "min",
+							"value": "70000"
+						},
+						{
+							"key": "max",
+							"value": "80000"
+						}
+					]
+				},
+				"description": "This endpoint makes an HTTP GET request to filter employees by salary within a specified range. It retrieves employee data whose salary falls between the minimum and maximum values provided in the query parameters.\n\n### Request\n\nThe request does not contain a request body.\n\n- URL: `http://localhost:3000/api/employee/filterbysalary`\n- Method: `GET`\n- Query Parameters:\n    - `min`: The minimum salary value (e.g., 70000)\n    - `max`: The maximum salary value (e.g., 80000)\n\n### Response\n\nThe response returns a status code of 200 along with an array of employee data objects. Each employee object includes the following properties:\n\n- `_id`: The unique identifier for the employee\n- `name`: The name of the employee\n- `position`: The position or job title of the employee\n- `salary`: The salary of the employee\n- `joiningDate`: The date when the employee joined\n- `createdAt`: The timestamp of when the employee data was created\n- `updatedAt`: The timestamp of when the employee data was last updated\n- `__v`: Version control field\n    \n\nExample response:\n\n``` json\n{\n  \"empData\": [\n    {\n      \"_id\": \"\",\n      \"name\": \"\",\n      \"position\": \"\",\n      \"salary\": \"\",\n      \"joiningDate\": \"\",\n      \"createdAt\": \"\",\n      \"updatedAt\": \"\",\n      \"__v\": 0\n    }\n  ]\n}\n\n ```"
+			},
+			"response": []
+		}
+	]
+}
