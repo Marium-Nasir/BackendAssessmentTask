@@ -5,5 +5,5 @@ once got node_modules then run the project by using command
 2) npm run dev
 
 task-1-Document.docx this file consits the API Documentation
-
+Backend-Assessment-Backend.postman_collection this the postman collection please import this collection for testing the API
 
